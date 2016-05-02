@@ -1,4 +1,15 @@
 status
-<div ng-repeat="s in status">
-    {{ s }}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <div ng-repeat="s in status">
+                <p>{{ s }}</p>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div ng-repeat="d in successDeleted">
+                <p>File Number {{ d }} was Successfully Deleted!</p>
+            </div>
+        </div>
+    </div>
 </div>

@@ -17,4 +17,9 @@ bulkRemoverApp.config(function ($routeProvider) {
             controller: 'statusController'
         })
 
+        .when('/how-to-use', {
+            templateUrl: 'pages/howtouse.html',
+            controller: 'howToUseController'
+        })
+
 });

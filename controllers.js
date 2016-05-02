@@ -5,59 +5,82 @@
 
 
 // CONTROLLERS
-bulkRemoverApp.controller('homeController', ['$scope', 'infoService', function($scope, infoService) {
+bulkRemoverApp.controller('homeController', ['$scope', 'infoService', function ($scope, infoService) {
 
     $scope.subdomain = infoService.city;
     $scope.token = infoService.token;
     $scope.noOfDays = infoService.noOfDays;
 
-    $scope.$watch('subdomain', function() {
+    $scope.$watch('subdomain', function () {
         infoService.subdomain = $scope.subdomain;
     });
 
-    $scope.$watch('token', function() {
+    $scope.$watch('token', function () {
         infoService.token = $scope.token;
     });
 
-    $scope.$watch('noOfDays', function() {
+    $scope.$watch('noOfDays', function () {
         infoService.noOfDays = $scope.noOfDays;
     });
 
 }]);
 
 
-bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routeParams', 'infoService', function($scope, $resource, $routeParams, infoService) {
+bulkRemoverApp.controller('howToUseController', ['$scope', function ($scope) {
+
+}]);
+
+
+bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routeParams', 'infoService', function ($scope, $resource, $routeParams, infoService) {
 
     // TODO: Validations for empty token
-    $scope.token = infoService.token;
-    $scope.noOfDays = infoService.noOfDays || '30';
+    $scope.token = infoService.token || 'xoxp-39117098275-39158895862-39167550325-fd3ce973f5';
+    // TODO: Validate date is not negative value
+    $scope.noOfDays = infoService.noOfDays;
     // TODO: Validation for empty subdomain
     $scope.subdomain = infoService.subdomain || 'testingtoolteam';
 
     var date = new Date();
-    date.setDate(date.getDate() - $scope.noOfDays);
+    if($scope.noOfDays === 0) {
+        console.log(date);
+    }
+    else {
+        date.setDate(date.getDate() - $scope.noOfDays);
+        console.log(date);
+        date = date.getTime();
+        console.log(date);
+    }
 
 
     $scope.listFilesURL = $resource("https://slack.com/api/files.list");
 
-    var response = $scope.listFilesURL.get({ token: $scope.token, ts_to: date });
+    var response = $scope.listFilesURL.get({token: $scope.token, ts_to: date});
 
-    response.$promise.then(function(data){
+    response.$promise.then(function (data) {
         console.log(data);
         $scope.files = data.files;
         var files = $scope.files;
-        console.log(files.length);
 
-        if(files.length === 0) {
-            alert("file list is empty.");
-            return;
+
+        if (undefined !== files) {
+            console.log(files.length);
+            if (files.length === 0) {
+                alert("No files are there to be deleted ;-) ");
+                return;
+            }
+        }
+
+        else {
+            alert("You are not authorized. Kindly check the token you provided")
         }
 
         var ctr = 1;
+        var ctr2 = 1;
         $scope.status = [];
-        for(i = 0; i< files.length; i++) {
-            $scope.status.push("Deleting file " + ctr +": " + $scope.files[i].name +".....");
-            console.log("Deleting file " + ctr +": " + $scope.files[i].name +".....");
+        $scope.successDeleted = [];
+        for (i = 0; i < files.length; i++) {
+            $scope.status.push("Deleting file " + ctr + ": " + $scope.files[i].name + ".....");
+            console.log("Deleting file " + ctr + ": " + $scope.files[i].name + ".....");
             timestamp = new Date().getTime();
             $scope.deleteUrl = $resource("https://" + $scope.subdomain + ".slack.com/api/files.delete?t=" + $scope.days);
 
@@ -67,8 +90,18 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
                 set_active: true,
                 _attempts: 1
             });
-
             ctr++;
+
+            response2.$promise.then(function (data) {
+                console.log("HOPA DATA!");
+                console.log(data);
+                console.log("BASSSS");
+                console.log("file " + ctr2 + " : Successfully deleted.");
+                $scope.successDeleted.push(ctr2);
+                ctr2++;
+            });
+
+
         }
 
     });
