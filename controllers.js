@@ -46,10 +46,8 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
     }
     else {
         date.setDate(date.getDate() - $scope.noOfDays);
-        console.log(date);
         date = date.getTime();
-        console.log(date);
-    }
+        
 
 
     $scope.listFilesURL = $resource("https://slack.com/api/files.list");
@@ -57,20 +55,20 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
     var response = $scope.listFilesURL.get({token: $scope.token, ts_to: date});
 
     response.$promise.then(function (data) {
-        console.log(data);
         $scope.files = data.files;
         var files = $scope.files;
 
 
         if (undefined !== files) {
-            console.log(files.length);
             if (files.length === 0) {
+                // TODO: replace the alert with error messages.
                 alert("No files are there to be deleted ;-) ");
                 return;
             }
         }
 
         else {
+            // TODO: replace the alert with error messages.
             alert("You are not authorized. Kindly check the token you provided")
         }
 
@@ -93,10 +91,6 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
             ctr++;
 
             response2.$promise.then(function (data) {
-                console.log("HOPA DATA!");
-                console.log(data);
-                console.log("BASSSS");
-                console.log("file " + ctr2 + " : Successfully deleted.");
                 $scope.successDeleted.push(ctr2);
                 ctr2++;
             });
