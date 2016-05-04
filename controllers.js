@@ -34,11 +34,11 @@ bulkRemoverApp.controller('howToUseController', ['$scope', function ($scope) {
 bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routeParams', 'infoService', function ($scope, $resource, $routeParams, infoService) {
 
     // TODO: Validations for empty token
-    $scope.token = infoService.token || 'xoxp-39117098275-39158895862-39167550325-fd3ce973f5';
+    $scope.token = infoService.token;
     // TODO: Validate date is not negative value
     $scope.noOfDays = infoService.noOfDays;
     // TODO: Validation for empty subdomain
-    $scope.subdomain = infoService.subdomain || 'testingtoolteam';
+    $scope.subdomain = infoService.subdomain;
 
     var date = new Date();
     if($scope.noOfDays === 0) {
