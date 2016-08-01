@@ -23,6 +23,11 @@ bulkRemoverApp.controller('HomeController', ['$scope', 'infoService', function (
         infoService.noOfDays = $scope.noOfDays;
     });
 
+    // SEO REQUIREMENT:
+    // PhantomJS pre-rendering workflow requires the page to declare, through htmlReady(), that
+    // we are finished with this controller.
+    $scope.htmlReady();
+
 }]);
 
 

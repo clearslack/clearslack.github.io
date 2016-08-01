@@ -3,7 +3,7 @@
  */
 
 // ROUTES
-bulkRemoverApp.config(function ($routeProvider,$scope) {
+bulkRemoverApp.config(function ($routeProvider) {
 
     $routeProvider
 
@@ -20,10 +20,7 @@ bulkRemoverApp.config(function ($routeProvider,$scope) {
         .when('/how-to-use', {
             templateUrl: 'pages/howtouse.html',
             controller: 'howToUseController'
-        });
-// SEO REQUIREMENT:
-      // PhantomJS pre-rendering workflow requires the page to declare, through htmlReady(), that
-      // we are finished with this controller.
-      $scope.htmlReady();
+        })
+
 
 });
