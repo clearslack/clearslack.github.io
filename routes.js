@@ -9,7 +9,7 @@ bulkRemoverApp.config(function ($routeProvider) {
 
         .when('/', {
             templateUrl: 'pages/home.html',
-            controller: 'homeController'
+            controller: 'HomeController'
         })
 
         .when('/status', {

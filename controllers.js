@@ -5,7 +5,7 @@
 
 
 // CONTROLLERS
-bulkRemoverApp.controller('homeController', ['$scope', 'infoService', function ($scope, infoService) {
+bulkRemoverApp.controller('HomeController', ['$scope', 'infoService', function ($scope, infoService) {
 
     $scope.subdomain = infoService.city;
     $scope.token = infoService.token;
