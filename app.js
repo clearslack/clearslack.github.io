@@ -4,7 +4,7 @@
 
 
 // MODULE
-var bulkRemoverApp = angular.module('bulkRemoverApp', ['ngRoute', 'ngResource']);
+var bulkRemoverApp = angular.module('bulkRemoverApp', ['ngRoute', 'ngResource','seo']);
 
 
 
