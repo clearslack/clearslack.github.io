@@ -47,8 +47,7 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
     else {
         date.setDate(date.getDate() - $scope.noOfDays);
         date = date.getTime();
-        
-
+    }
 
     $scope.listFilesURL = $resource("https://slack.com/api/files.list");
 
@@ -101,5 +100,4 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
     });
 
 
-    }
 }]);
