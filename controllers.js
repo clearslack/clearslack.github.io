@@ -101,4 +101,5 @@ bulkRemoverApp.controller('statusController', ['$scope', '$resource', '$routePar
     });
 
 
+    }
 }]);
